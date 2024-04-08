@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- The doctype declaration above tells the web browser about the document type and version of HTML. -->
+
+<html>
+  <head>
+    <!-- The head section contains meta information, scripts, and links to external resources. -->
+    <h1>MIDI Chord Progression Helper Tool</h1>
+    <!-- The title tag sets the title of the web page as it appears in the browser tab. -->
+    <title>MIDI Chord Progression Helper Tool</title>
+
+    <!-- This script tag links to the WebMidi.js library, enabling MIDI functionality in the web browser. -->
+    <script src="https://cdn.jsdelivr.net/npm/webmidi@latest/dist/iife/webmidi.iife.js"></script>
+
+    <!-- This script tag links to the external JavaScript file that contains the logic for handling MIDI devices. -->
+    <script src="script.js" type="module"></script>
+  </head>
+  <body>
+    <div>
+      <!-- The body section contains the content of the web page. -->
+      <h3>
+        A tool that you can use to generate chord progressions from a single
+        MIDI note! Select your MIDI input and output, then activate either the
+        Chord Progresson tool or Individual Chord tool to get started.
+      </h3>
+      <!-- An h1 header that provides a title or a brief description of the page's purpose. -->
+    </div>
+
+    <div>
+      <!-- A division or a section in an HTML document, used here to group the input device selector. -->
+      <label for="dropdown-ins">Select a MIDI Input:</label>
+      <!-- The label tag defines a label for the select element below. The 'for' attribute specifies which form element the label is bound to. -->
+      <select id="dropdown-ins">
+        <!-- The select tag represents a drop-down list. The id attribute is used to identify the element in CSS and JavaScript. -->
+        <!-- Options for the drop-down list are dynamically added through the script.js file. -->
+        <option value="midiPianoRoll">MIDI Piano Roll</option>
+      </select>
+    </div>
+
+    <div>
+      <!-- Another division for grouping the output device selector. -->
+      <label for="dropdown-outs">Select a MIDI Output:</label>
+      <!-- Similar to the input label, this defines a label for the MIDI output selector. -->
+      <select id="dropdown-outs">
+        <!-- This select element is for choosing a MIDI output device. -->
+        <!-- Like the input selector, options are added dynamically via script.js. -->
+        <option value="liveAudioOut">Live Audio Out</option>
+      </select>
+    </div>
+
+    <div>
+      <!--The Chord Progression Generator Section-->
+      <h2>Chord Progression Generator</h2>
+      <label for="progression">Progression:</label>
+      <select id="firstChord">
+        <option value="I">I</option>
+        <option value="ii">ii</option>
+        <option value="iii">iii</option>
+        <option value="IV">IV</option>
+        <option value="V">V</option>
+        <option value="vi">vi</option>
+        <option value="viio">viio</option>
+      </select>
+      <select id="secondChord">
+        <option value="I">I</option>
+        <option value="ii">ii</option>
+        <option value="iii">iii</option>
+        <option value="IV">IV</option>
+        <option value="V">V</option>
+        <option value="vi">vi</option>
+        <option value="viio">viio</option>
+      </select>
+      <select id="thirdChord">
+        <option value="I">I</option>
+        <option value="ii">ii</option>
+        <option value="iii">iii</option>
+        <option value="IV">IV</option>
+        <option value="V">V</option>
+        <option value="vi">vi</option>
+        <option value="viio">viio</option>
+      </select>
+      <select id="fourthChord">
+        <option value="I">I</option>
+        <option value="ii">ii</option>
+        <option value="iii">iii</option>
+        <option value="IV">IV</option>
+        <option value="V">V</option>
+        <option value="vi">vi</option>
+        <option value="viio">viio</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="meter">Meter:</label>
+      <select id="meter">
+        <option value="4/4">4/4</option>
+        <option value="3/4">3/4</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="tempo"> Tempo (BPM):</label>
+      <input type="number" id="tempo" name="tempo" min="60" max="200" />
+    </div>
+
+    <!--The Individual Chord Generator Section-->
+    <div>
+      <h2>Individual Chord Generator</h2>
+      <label for="chordquality">Select Chord Quality:</label>
+      <select name="chordquality" id="chordquality">
+        <option value="major">Major</option>
+        <option value="major7th">Major 7th</option>
+        <option value="minor">Minor</option>
+        <option value="minor7th">Minor 7th</option>
+        <option value="dominant">Dominant</option>
+        <option value="halfDiminished">Half Diminished</option>
+        <option value="fullDiminished">Full Diminished</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="keyContext">Key Context:</label>
+      <select name="keyContext" id="keyContext">
+        <option value="keyContextOn">On</option>
+        <option value="keyContextOff">Off</option>
+      </select>
+    </div>
+
+    <div>
+      <body>
+        (Turning this on will automatically adjust Chord Quality to fit within
+        the context of a Key. Select desired Key below.)
+      </body>
+    </div>
+
+    <div>
+      <label for="key">Key:</label>
+      <select id="key">
+        <option value="C Major">C Major</option>
+        <option value="C# Major">C# Major</option>
+        <option value="D Major">D Major</option>
+        <option value="E Major">E Major</option>
+        <option value="Eb Major">Eb Major</option>
+        <option value="F Major">F Major</option>
+        <option value="F# Major">F# Major</option>
+        <option value="G Major">G Major</option>
+        <option value="Ab Major">Ab Major</option>
+        <option value="A Major">A Major</option>
+        <option value="Bb Major">Bb Major</option>
+        <option value="B Major">B Major</option>
+      </select>
+    </div>
+  </body>
+</html>
