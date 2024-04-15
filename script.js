@@ -8,6 +8,7 @@ let myOutput = WebMidi.outputs[0].channels[1];
 let dropIns = document.getElementById("dropdown-ins");
 let dropOuts = document.getElementById("dropdown-outs");
 let qualityName = document.getElementById("chordquality");
+let keyContext = document.getElementById("keyContext");
 
 // For each MIDI input device detected, add an option to the input devices dropdown.
 // This loop iterates over all detected input devices, adding them to the dropdown.
@@ -21,13 +22,28 @@ WebMidi.outputs.forEach(function (output, num) {
   dropOuts.innerHTML += `<option value=${num}>${output.name}</option>`;
 });
 
+// A function that detects whether the Key Context setting is on or off. When on, it disables the code that allows user input for the Chord Quality
+
+let keyContextToggle = "off";
+
+keyContext.addEventListener("change", function () {
+  keyContextToggle = keyContext.value;
+  console.log(keyContextToggle);
+  return keyContextToggle;
+});
+
 //A function that allows the script to react when a different quality is selected on the quality dropdown menu.
 
+//if (keyContextToggle == "off") {
 let quality = "major";
 
 qualityName.addEventListener("change", function () {
   quality = qualityName.value;
+  console.log(quality);
 });
+//} else {
+//let quality = scaleDegree.Qual;
+//}
 
 // Add an event listener for the 'change' event on the input devices dropdown.
 // This allows the script to react when the user selects a different MIDI input device.
@@ -68,13 +84,6 @@ dropIns.addEventListener("change", function () {
 
 const midiProcess = function (midiIN, quality) {
   let pitch = midiIN.note.number;
-  // let major = quality.major;
-  // let major7th = quality.major7th;
-  // let minor = quality.minor;
-  // let minor7th = quality.minor7th;
-  // let dominant = quality.dominant;
-  // let halfDiminished = quality.halfDiminished;
-  // let fullDiminished = quality.fullDiminished;
 
   if (quality == "major") {
     let myNewNote1 = new Note(pitch, { rawAttack: 101 });
