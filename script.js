@@ -9,6 +9,7 @@ let dropIns = document.getElementById("dropdown-ins");
 let dropOuts = document.getElementById("dropdown-outs");
 let qualityName = document.getElementById("chordquality");
 let keyContext = document.getElementById("keyContext");
+let keyContextKey = document.getElementById("key");
 
 // For each MIDI input device detected, add an option to the input devices dropdown.
 // This loop iterates over all detected input devices, adding them to the dropdown.
@@ -24,26 +25,73 @@ WebMidi.outputs.forEach(function (output, num) {
 
 // A function that detects whether the Key Context setting is on or off. When on, it disables the code that allows user input for the Chord Quality
 
+//The commented code below is to run the program when Key Context is OFF. It worked before, but not right now.
+//A function that allows the script to react when a different quality is selected on the quality dropdown menu.
+
+// let quality = "major";
+
+// qualityName.addEventListener("change", function () {
+//   quality = qualityName.value;
+//   console.log(quality);
+// });
+
+//This function is supposed to allow for the script to react when the Key Context dropdown is changed from off to on. Right now, for some reason, it only behaves as if its always on.
+//This code also allows for key selection: It changes the quality associated with a MIDI input sent to the SomeMIDI function based on the scale degree of the user's desired scale
+
 let keyContextToggle = "off";
 
 keyContext.addEventListener("change", function () {
   keyContextToggle = keyContext.value;
   console.log(keyContextToggle);
-  return keyContextToggle;
+  if (keyContextToggle == "off") {
+    let quality = "major";
+
+    qualityName.addEventListener("change", function () {
+      quality = qualityName.value;
+      console.log(quality);
+    });
+  } else if (keyContextToggle == "on") {
+    keyContextKey.addEventListener("change", function () {
+      keyContextSelection = keyContextKey.value;
+      console.log(keyContextSelection);
+      if (keyContextSelection == "C Major") {
+        root = 60;
+      } else if (keyContextSelection == "C# Major") {
+        root = 61;
+      } else if (keyContextSelection == "D Major") {
+        root = 62;
+      } else if (keyContextSelection == "Eb Major") {
+        root = 63;
+      } else if (keyContextSelection == "E Major") {
+        root = 64;
+      } else if (keyContextSelection == "F Major") {
+        root = 65;
+      } else if (keyContextSelection == "F# Major") {
+        root = 66;
+      } else if (keyContextSelection == "G Major") {
+        root = 67;
+      } else if (keyContextSelection == "Ab Major") {
+        root = 68;
+      } else if (keyContextSelection == "A Major") {
+        root = 69;
+      } else if (keyContextSelection == "Bb Major") {
+        root = 70;
+      } else if (keyContextSelection == "B Major") {
+        root = 71;
+      }
+      console.log(root);
+      return keyContextSelection;
+    });
+  } else if (keyContextToggle == "off") {
+    //A test to see if toggling the Key Context actually prevents the if statement above from running. Spoiler, it doesn't
+    console.log("This shii don't work");
+  }
 });
 
-//A function that allows the script to react when a different quality is selected on the quality dropdown menu.
+//Declarations for the following function, assuming Key Context is ON.
 
-//if (keyContextToggle == "off") {
-let quality = "major";
-
-qualityName.addEventListener("change", function () {
-  quality = qualityName.value;
-  console.log(quality);
-});
-//} else {
-//let quality = scaleDegree.Qual;
-//}
+let keyContextSelection = "C Major";
+let root;
 
 // Add an event listener for the 'change' event on the input devices dropdown.
 // This allows the script to react when the user selects a different MIDI input device.
@@ -59,6 +107,34 @@ dropIns.addEventListener("change", function () {
 
   // Change the input device based on the user's selection in the dropdown.
   myInput = WebMidi.inputs[dropIns.value];
+
+  let quality = "major";
+
+  myInput.addListener("noteon", function (someMIDI) {
+    // When a note on event is received, send a note on message to the output device.
+    // This can trigger a sound or action on the MIDI output device.
+    console.log(`My note is number ${someMIDI.note.number}`);
+    //Based on the value of the MIDI note number compared to the root of the selected key's note number, change the quality of the chord. For now, this will only work with MIDI notes 60 - 72.
+    if (keyContextToggle == "on") {
+      if (someMIDI.note.number == root) {
+        quality = "major";
+      } else if (someMIDI.note.number == root + 2) {
+        quality = "minor";
+      } else if (someMIDI.note.number == root + 4) {
+        quality = "minor";
+      } else if (someMIDI.note.number == root + 5) {
+        quality = "major";
+      } else if (someMIDI.note.number == root + 7) {
+        quality = "major";
+      } else if (someMIDI.note.number == root + 9) {
+        quality = "minor";
+      } else if (someMIDI.note.number == root + 11) {
+        quality = "minor";
+      } else if (someMIDI.note.number == root + 12) {
+        quality = "major";
+      }
+    }
+  });
 
   // After changing the input device, add new listeners for 'noteon' and 'noteoff' events.
   // These listeners will handle MIDI note on (key press) and note off (key release) messages.
@@ -80,7 +156,7 @@ dropIns.addEventListener("change", function () {
   });
 });
 
-//Doing the dot thing gets a value/object from the thing. You have to make an object in the object to get it to call
+//An inefficient way of generating four MIDI notes from one, using the MIDI Note Number, and a quality assignment
 
 const midiProcess = function (midiIN, quality) {
   let pitch = midiIN.note.number;
