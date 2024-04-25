@@ -48,6 +48,65 @@
     </div>
 
     <div>
+      <label for="whichFunction"
+        >Progression Generator or Individual Chord Generator? Select
+        here:</label
+      >
+      <select name="whichfunction" id="whichFunction">
+        <option value="chordGen">Individual Chord Generator</option>
+        <option value="progressionGen">Chord Progression Generator</option>
+      </select>
+    </div>
+
+    <!--The Individual Chord Generator Section-->
+    <div>
+      <h2>Individual Chord Generator</h2>
+      <label for="chordquality">Select Chord Quality:</label>
+      <select name="chordquality" id="chordquality">
+        <option value="major">Major</option>
+        <option value="major7th">Major 7th</option>
+        <option value="minor">Minor</option>
+        <option value="minor7th">Minor 7th</option>
+        <option value="dominant">Dominant</option>
+        <option value="halfDiminished">Half Diminished</option>
+        <option value="fullDiminished">Full Diminished</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="keyContext">Key Context:</label>
+      <select name="keyContext" id="keyContext">
+        <option value="off">Off</option>
+        <option value="on">On</option>
+      </select>
+    </div>
+
+    <div>
+      <body>
+        (Turning this on will automatically adjust Chord Quality to fit within
+        the context of a Key. Select desired Key below.)
+      </body>
+    </div>
+
+    <div>
+      <label for="key">Key:</label>
+      <select name="key" id="key">
+        <option value="C Major">C Major</option>
+        <option value="C# Major">C# Major</option>
+        <option value="D Major">D Major</option>
+        <option value="Eb Major">Eb Major</option>
+        <option value="E Major">E Major</option>
+        <option value="F Major">F Major</option>
+        <option value="F# Major">F# Major</option>
+        <option value="G Major">G Major</option>
+        <option value="Ab Major">Ab Major</option>
+        <option value="A Major">A Major</option>
+        <option value="Bb Major">Bb Major</option>
+        <option value="B Major">B Major</option>
+      </select>
+    </div>
+
+    <div>
       <!--The Chord Progression Generator Section-->
       <h2>Chord Progression Generator</h2>
       <label for="progression">Progression:</label>
@@ -100,54 +159,6 @@
     <div>
       <label for="tempo"> Tempo (BPM):</label>
       <input type="number" id="tempo" name="tempo" min="60" max="200" />
-    </div>
-
-    <!--The Individual Chord Generator Section-->
-    <div>
-      <h2>Individual Chord Generator</h2>
-      <label for="chordquality">Select Chord Quality:</label>
-      <select name="chordquality" id="chordquality">
-        <option value="major">Major</option>
-        <option value="major7th">Major 7th</option>
-        <option value="minor">Minor</option>
-        <option value="minor7th">Minor 7th</option>
-        <option value="dominant">Dominant</option>
-        <option value="halfDiminished">Half Diminished</option>
-        <option value="fullDiminished">Full Diminished</option>
-      </select>
-    </div>
-
-    <div>
-      <label for="keyContext">Key Context:</label>
-      <select name="keyContext" id="keyContext">
-        <option value="off">Off</option>
-        <option value="on">On</option>
-      </select>
-    </div>
-
-    <div>
-      <body>
-        (Turning this on will automatically adjust Chord Quality to fit within
-        the context of a Key. Select desired Key below.)
-      </body>
-    </div>
-
-    <div>
-      <label for="key">Key:</label>
-      <select name="key" id="key">
-        <option value="C Major">C Major</option>
-        <option value="C# Major">C# Major</option>
-        <option value="D Major">D Major</option>
-        <option value="Eb Major">Eb Major</option>
-        <option value="E Major">E Major</option>
-        <option value="F Major">F Major</option>
-        <option value="F# Major">F# Major</option>
-        <option value="G Major">G Major</option>
-        <option value="Ab Major">Ab Major</option>
-        <option value="A Major">A Major</option>
-        <option value="Bb Major">Bb Major</option>
-        <option value="B Major">B Major</option>
-      </select>
     </div>
   </body>
 </html>
