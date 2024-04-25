@@ -32,7 +32,7 @@ WebMidi.outputs.forEach(function (output, num) {
 
 function kcKeySelect() {
   keyContextSelection = keyContextKey.value;
-  console.log(keyContextSelection);
+  console.log(`The current key is ${keyContextSelection}.`);
   if (keyContextSelection == "C Major") {
     root = 60;
   } else if (keyContextSelection == "C# Major") {
@@ -58,7 +58,6 @@ function kcKeySelect() {
   } else if (keyContextSelection == "B Major") {
     root = 71;
   }
-  console.log(root);
 }
 
 //These functions act as switches for the Key Context function to toggle. It enables Key Context Key selection when the Key Context is set to On, and disables it when its set to Off
@@ -69,13 +68,13 @@ function kcToggleOn() {
     keyContextToggle = false;
     keyContextKey.removeEventListener("change", kcKeySelect);
   }
-  console.log(keyContextToggle);
+  console.log("Key Context is Off");
 }
 function kcToggleOff() {
   if (keyContext.value == "on") {
     keyContextToggle = true;
   }
-  console.log(keyContextToggle);
+  console.log("Key Context is On");
 }
 
 keyContext.addEventListener("change", function () {
@@ -84,7 +83,6 @@ keyContext.addEventListener("change", function () {
   if (keyContextToggle == true) {
     keyContextKey.addEventListener("change", kcKeySelect);
   } else if (keyContextToggle == false) {
-    console.log("Does this even work?");
     keyContextKey.removeEventListener("change", kcKeySelect);
   }
 });
@@ -98,6 +96,9 @@ function qualitySelect() {
   console.log(quality);
 }
 
+qualityName.addEventListener("change", function () {
+  keyContextToggle ? null() : qualitySelect();
+});
 //Declarations for the following function, assuming Key Context is ON.
 
 let keyContextSelection = "C Major";
