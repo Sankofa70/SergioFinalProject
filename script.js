@@ -187,28 +187,11 @@ dropIns.addEventListener("change", function () {
       } else if (keyContextToggle == false) {
         qualityName.addEventListener("change", qualitySelect);
       }
-
-      myInput.addListener("noteon", function (someMIDI) {
-        // When a note on event is received, send a note on message to the output device.
-        // This can trigger a sound or action on the MIDI output device.
-        console.log(
-          `My note is ${someMIDI.note.identifier}, it is pitch ${someMIDI.note.number}, with a velocity of ${someMIDI.note.rawAttack}`
-        );
-
-        myOutput.sendNoteOn(midiProcess(someMIDI, quality));
-      });
-
-      myInput.addListener("noteoff", function (someMIDI) {
-        // Similarly, when a note off event is received, send a note off message to the output device.
-        // This signals the end of a note being played.
-
-        myOutput.sendNoteOff(midiProcess(someMIDI, quality));
-      });
     }
 
     function progressionGenerator() {
       console.log("The Progression Generator is Working");
-      keyContextToggle == true;
+      keyContextToggle = true;
       if (keyContextToggle == true) {
         if (someMIDI.note.number == root) {
           quality = "major";
@@ -238,30 +221,27 @@ dropIns.addEventListener("change", function () {
           quality = "major";
         }
       }
-      // After changing the input device, add new listeners for 'noteon' and 'noteoff' events.
-      // These listeners will handle MIDI note on (key press) and note off (key release) messages.
-      myInput.addListener("noteon", function (someMIDI) {
-        // When a note on event is received, send a note on message to the output device.
-        // This can trigger a sound or action on the MIDI output device.
-
-        //This is supposed to activate the Prgression Generator or Chord Generator function, depending on which is selected
-        progGenOn ? progressionGenerator : chordGenerator;
-
-        console.log(
-          `My note is ${someMIDI.note.identifier}, it is pitch ${someMIDI.note.number}, with a velocity of ${someMIDI.note.rawAttack}`
-        );
-
-        myOutput.sendNoteOn(midiProcess(someMIDI, quality));
-      });
-
-      myInput.addListener("noteoff", function (someMIDI) {
-        // Similarly, when a note off event is received, send a note off message to the output device.
-        // This signals the end of a note being played.
-        progGenOn ? progressionGenerator : chordGenerator;
-
-        myOutput.sendNoteOff(midiProcess(someMIDI, quality));
-      });
     }
+
+    myInput.addListener("noteon", function (someMIDI) {
+      // When a note on event is received, send a note on message to the output device.
+      // This can trigger a sound or action on the MIDI output device.
+      console.log(
+        `My note is ${someMIDI.note.identifier}, it is pitch ${someMIDI.note.number}, with a velocity of ${someMIDI.note.rawAttack}`
+      );
+      progGenOn ? progressionGenerator : chordGenerator;
+
+      myOutput.sendNoteOn(midiProcess(someMIDI, quality));
+    });
+
+    myInput.addListener("noteoff", function (someMIDI) {
+      // Similarly, when a note off event is received, send a note off message to the output device.
+      // This signals the end of a note being played.
+
+      progGenOn ? progressionGenerator : chordGenerator;
+
+      myOutput.sendNoteOff(midiProcess(someMIDI, quality));
+    });
   });
 });
 
