@@ -11,6 +11,7 @@ let qualityName = document.getElementById("chordquality");
 let keyContext = document.getElementById("keyContext");
 let keyContextKey = document.getElementById("key");
 let functionSelect = document.getElementById("whichFunction");
+let statusCheck = document.getElementById("statusCheck");
 
 // For each MIDI input device detected, add an option to the input devices dropdown.
 // This loop iterates over all detected input devices, adding them to the dropdown.
@@ -132,6 +133,77 @@ functionSelect.addEventListener("change", function () {
   console.log(progGenOn);
 });
 
+//Based on the value of the MIDI note number compared to the root of the selected key's note number, change the quality of the chord. For now, this will only work with MIDI notes 60 - 72.
+//This also prevents the user from playing notes outside of their selected scale (Within the MIDI Note 60-72 Octave)
+function chordGenerator() {
+  console.log("The Chord Generator is Working");
+  if (keyContextToggle == true) {
+    if (someMIDI.note.number == root) {
+      quality = "major";
+    } else if (someMIDI.note.number == root + 1) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 2) {
+      quality = "minor";
+    } else if (someMIDI.note.number == root + 3) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 4) {
+      quality = "minor";
+    } else if (someMIDI.note.number == root + 5) {
+      quality = "major";
+    } else if (someMIDI.note.number == root + 6) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 7) {
+      quality = "major";
+    } else if (someMIDI.note.number == root + 8) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 9) {
+      quality = "minor";
+    } else if (someMIDI.note.number == root + 10) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 11) {
+      quality = "minor";
+    } else if (someMIDI.note.number == root + 12) {
+      quality = "major";
+    }
+  } else if (keyContextToggle == false) {
+    qualityName.addEventListener("change", qualitySelect);
+  }
+}
+
+function progressionGenerator() {
+  console.log("The Progression Generator is Working");
+  keyContextToggle = true;
+  if (keyContextToggle == true) {
+    if (someMIDI.note.number == root) {
+      quality = "major";
+    } else if (someMIDI.note.number == root + 1) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 2) {
+      quality = "minor";
+    } else if (someMIDI.note.number == root + 3) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 4) {
+      quality = "minor";
+    } else if (someMIDI.note.number == root + 5) {
+      quality = "major";
+    } else if (someMIDI.note.number == root + 6) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 7) {
+      quality = "major";
+    } else if (someMIDI.note.number == root + 8) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 9) {
+      quality = "minor";
+    } else if (someMIDI.note.number == root + 10) {
+      quality = null;
+    } else if (someMIDI.note.number == root + 11) {
+      quality = "minor";
+    } else if (someMIDI.note.number == root + 12) {
+      quality = "major";
+    }
+  }
+}
+
 // Add an event listener for the 'change' event on the input devices dropdown.
 // This allows the script to react when the user selects a different MIDI input device.
 
@@ -151,97 +223,23 @@ dropIns.addEventListener("change", function () {
   myInput.addListener("noteon", function (someMIDI) {
     // When a note on event is received, send a note on message to the output device.
     // This can trigger a sound or action on the MIDI output device.
-    console.log(`My note is number ${someMIDI.note.number}`);
-    //Based on the value of the MIDI note number compared to the root of the selected key's note number, change the quality of the chord. For now, this will only work with MIDI notes 60 - 72.
-    //This also prevents the user from playing notes outside of their selected scale (Within the MIDI Note 60-72 Octave)
-    function chordGenerator() {
-      console.log("The Chord Generator is Working");
-      if (keyContextToggle == true) {
-        if (someMIDI.note.number == root) {
-          quality = "major";
-        } else if (someMIDI.note.number == root + 1) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 2) {
-          quality = "minor";
-        } else if (someMIDI.note.number == root + 3) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 4) {
-          quality = "minor";
-        } else if (someMIDI.note.number == root + 5) {
-          quality = "major";
-        } else if (someMIDI.note.number == root + 6) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 7) {
-          quality = "major";
-        } else if (someMIDI.note.number == root + 8) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 9) {
-          quality = "minor";
-        } else if (someMIDI.note.number == root + 10) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 11) {
-          quality = "minor";
-        } else if (someMIDI.note.number == root + 12) {
-          quality = "major";
-        }
-      } else if (keyContextToggle == false) {
-        qualityName.addEventListener("change", qualitySelect);
-      }
-    }
 
-    function progressionGenerator() {
-      console.log("The Progression Generator is Working");
-      keyContextToggle = true;
-      if (keyContextToggle == true) {
-        if (someMIDI.note.number == root) {
-          quality = "major";
-        } else if (someMIDI.note.number == root + 1) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 2) {
-          quality = "minor";
-        } else if (someMIDI.note.number == root + 3) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 4) {
-          quality = "minor";
-        } else if (someMIDI.note.number == root + 5) {
-          quality = "major";
-        } else if (someMIDI.note.number == root + 6) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 7) {
-          quality = "major";
-        } else if (someMIDI.note.number == root + 8) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 9) {
-          quality = "minor";
-        } else if (someMIDI.note.number == root + 10) {
-          quality = null;
-        } else if (someMIDI.note.number == root + 11) {
-          quality = "minor";
-        } else if (someMIDI.note.number == root + 12) {
-          quality = "major";
-        }
-      }
-    }
+    console.log(
+      `My note is ${someMIDI.note.identifier}, it is pitch ${someMIDI.note.number}, with a velocity of ${someMIDI.note.rawAttack}`
+    );
 
-    myInput.addListener("noteon", function (someMIDI) {
-      // When a note on event is received, send a note on message to the output device.
-      // This can trigger a sound or action on the MIDI output device.
-      console.log(
-        `My note is ${someMIDI.note.identifier}, it is pitch ${someMIDI.note.number}, with a velocity of ${someMIDI.note.rawAttack}`
-      );
-      progGenOn ? progressionGenerator : chordGenerator;
+    let myNotes = midiProcess(someMIDI, quality);
+    console.log(myNotes);
 
-      myOutput.sendNoteOn(midiProcess(someMIDI, quality));
-    });
+    myOutput.sendNoteOn(myNotes);
 
-    myInput.addListener("noteoff", function (someMIDI) {
-      // Similarly, when a note off event is received, send a note off message to the output device.
-      // This signals the end of a note being played.
+    // });
+  });
+  myInput.addListener("noteoff", function (someMIDI) {
+    // Similarly, when a note off event is received, send a note off message to the output device.
+    // This signals the end of a note being played.
 
-      progGenOn ? progressionGenerator : chordGenerator;
-
-      myOutput.sendNoteOff(midiProcess(someMIDI, quality));
-    });
+    myOutput.sendNoteOff(midiProcess(someMIDI, quality));
   });
 });
 
@@ -250,6 +248,78 @@ dropIns.addEventListener("change", function () {
 const midiProcess = function (midiIN, quality) {
   let pitch = midiIN.note.number;
 
+  if (progGenOn == true) {
+    console.log("The Progression Generator is Working");
+    keyContextToggle = true;
+    qualityName.removeEventListener("change", qualitySelect);
+    if (keyContextToggle == true) {
+      if (pitch == root) {
+        quality = "major";
+      } else if (pitch == root + 1) {
+        quality = null;
+      } else if (pitch == root + 2) {
+        quality = "minor";
+      } else if (pitch == root + 3) {
+        quality = null;
+      } else if (pitch == root + 4) {
+        quality = "minor";
+      } else if (pitch == root + 5) {
+        quality = "major";
+      } else if (pitch == root + 6) {
+        quality = null;
+      } else if (pitch == root + 7) {
+        quality = "major";
+      } else if (pitch == root + 8) {
+        quality = null;
+      } else if (pitch == root + 9) {
+        quality = "minor";
+      } else if (pitch == root + 10) {
+        quality = null;
+      } else if (pitch == root + 11) {
+        quality = "minor";
+      } else if (pitch == root + 12) {
+        quality = "major";
+      }
+    }
+  } else {
+    console.log("The Chord Generator is Working");
+    if (keyContextToggle == false) {
+      qualityName.addEventListener("change", qualitySelect);
+    } else if (keyContextToggle == true) {
+      qualityName.removeEventListener("change", qualitySelect);
+      if (pitch == root) {
+        quality = "major";
+      } else if (pitch == root + 1) {
+        quality = null;
+      } else if (pitch == root + 2) {
+        quality = "minor";
+      } else if (pitch == root + 3) {
+        quality = null;
+      } else if (pitch == root + 4) {
+        quality = "minor";
+      } else if (pitch == root + 5) {
+        quality = "major";
+      } else if (pitch == root + 6) {
+        quality = null;
+      } else if (pitch == root + 7) {
+        quality = "major";
+      } else if (pitch == root + 8) {
+        quality = null;
+      } else if (pitch == root + 9) {
+        quality = "minor";
+      } else if (pitch == root + 10) {
+        quality = null;
+      } else if (pitch == root + 11) {
+        quality = "minor";
+      } else if (pitch == root + 12) {
+        quality = "major";
+      }
+    }
+    console.log("buabuabuabuab");
+  }
+
+  //Put all outcome code in here
+  //Don't use function in here--All one big function
   if (quality == "major") {
     let myNewNote1 = new Note(pitch, { rawAttack: 101 });
     let myNewNote2 = new Note(pitch + 4, { rawAttack: 101 });
@@ -303,4 +373,13 @@ dropOuts.addEventListener("change", function () {
   // The '.channels[1]' specifies that the script should use the first channel of the selected output device.
   // MIDI channels are often used to separate messages for different instruments or sounds.
   myOutput = WebMidi.outputs[dropOuts.value].channels[1];
+});
+
+//Three Problems with the Code: Note On Messages are getting duplicated, The Chord Context function is getting overrided, I want to be able to change between the Progression and Chord Generator
+
+statusCheck.addEventListener("click", function () {
+  console.log(`Progression Generator? ${progGenOn}`);
+  console.log(`Chord Quuality: ${quality}`);
+  console.log(`Key Context: ${keyContextToggle}`);
+  console.log(`Key Context Key: ${keyContextSelection}`);
 });
