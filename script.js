@@ -12,6 +12,10 @@ let keyContext = document.getElementById("keyContext");
 let keyContextKey = document.getElementById("key");
 let functionSelect = document.getElementById("whichFunction");
 let statusCheck = document.getElementById("statusCheck");
+let firstChordSelection = document.getElementById("firstChord");
+let secondChordSelection = document.getElementById("secondChord");
+let thirdChordSelection = document.getElementById("thirdChord");
+let fourthChordSelection = document.getElementById("fourthChord");
 
 // For each MIDI input device detected, add an option to the input devices dropdown.
 // This loop iterates over all detected input devices, adding them to the dropdown.
@@ -133,6 +137,8 @@ functionSelect.addEventListener("change", function () {
   console.log(progGenOn);
 });
 
+//This function adds event listeners for the chord boxes in the Progression Generator
+
 //Based on the value of the MIDI note number compared to the root of the selected key's note number, change the quality of the chord. For now, this will only work with MIDI notes 60 - 72.
 //This also prevents the user from playing notes outside of their selected scale (Within the MIDI Note 60-72 Octave)
 
@@ -153,22 +159,70 @@ dropIns.addEventListener("change", function () {
   myInput = WebMidi.inputs[dropIns.value];
 
   let intervalID;
+
   if (progGenOn == true) {
     myInput.addListener("noteon", function (someMIDI) {
-      // Create a new MIDI message object with the desired note number (60)
-      let myNotes = {
-        note: {
-          identifier: someMIDI.note.identifier,
-          number: 60, // Set the note number to 60
-          rawAttack: someMIDI.note.rawAttack,
-        },
-      };
-      console.log(myNotes.note.number);
-      // Process the MIDI message with the fixed note number
-      myNotes = midiProcess(myNotes, quality);
+      let currentRootNumber; // Define currentRootNumber here
+
+      // The function that specifies the root of chords that the Chord Generator should play based on user selections
+      function progressionLooper() {
+        // Define the functions to be executed in order
+        function firstChord() {
+          currentRootNumber = 60;
+        }
+
+        function secondChord() {
+          currentRootNumber = 61;
+        }
+
+        function thirdChord() {
+          currentRootNumber = 62;
+        }
+
+        function fourthChord() {
+          currentRootNumber = 63;
+        }
+
+        // Define the sequence of function calls with delays
+        function chordSequence() {
+          setTimeout(function () {
+            firstChord();
+            setTimeout(function () {
+              secondChord();
+              setTimeout(function () {
+                thirdChord();
+                setTimeout(function () {
+                  fourthChord();
+                  // Call the function recursively to loop indefinitely
+                  chordSequence();
+                }, 999);
+              }, 999);
+            }, 999);
+          }, 999);
+        }
+
+        // Start the sequence
+        chordSequence();
+      }
+
+      progressionLooper();
 
       // Define a function to send note-on messages
       function sendNoteOn() {
+        // Create a new MIDI message object with the desired note number
+        let myNotes = {
+          note: {
+            identifier: someMIDI.note.identifier,
+            number: currentRootNumber, // Set the note number
+            rawAttack: someMIDI.note.rawAttack,
+          },
+        };
+        console.log(myNotes.note.number); // Log the current note number
+
+        // Process the MIDI message with the updated note number
+        myNotes = midiProcess(myNotes, quality);
+
+        // Send the note-on message
         myOutput.sendNoteOn(myNotes);
       }
 
