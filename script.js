@@ -135,74 +135,6 @@ functionSelect.addEventListener("change", function () {
 
 //Based on the value of the MIDI note number compared to the root of the selected key's note number, change the quality of the chord. For now, this will only work with MIDI notes 60 - 72.
 //This also prevents the user from playing notes outside of their selected scale (Within the MIDI Note 60-72 Octave)
-function chordGenerator() {
-  console.log("The Chord Generator is Working");
-  if (keyContextToggle == true) {
-    if (someMIDI.note.number == root) {
-      quality = "major";
-    } else if (someMIDI.note.number == root + 1) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 2) {
-      quality = "minor";
-    } else if (someMIDI.note.number == root + 3) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 4) {
-      quality = "minor";
-    } else if (someMIDI.note.number == root + 5) {
-      quality = "major";
-    } else if (someMIDI.note.number == root + 6) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 7) {
-      quality = "major";
-    } else if (someMIDI.note.number == root + 8) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 9) {
-      quality = "minor";
-    } else if (someMIDI.note.number == root + 10) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 11) {
-      quality = "minor";
-    } else if (someMIDI.note.number == root + 12) {
-      quality = "major";
-    }
-  } else if (keyContextToggle == false) {
-    qualityName.addEventListener("change", qualitySelect);
-  }
-}
-
-function progressionGenerator() {
-  console.log("The Progression Generator is Working");
-  keyContextToggle = true;
-  if (keyContextToggle == true) {
-    if (someMIDI.note.number == root) {
-      quality = "major";
-    } else if (someMIDI.note.number == root + 1) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 2) {
-      quality = "minor";
-    } else if (someMIDI.note.number == root + 3) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 4) {
-      quality = "minor";
-    } else if (someMIDI.note.number == root + 5) {
-      quality = "major";
-    } else if (someMIDI.note.number == root + 6) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 7) {
-      quality = "major";
-    } else if (someMIDI.note.number == root + 8) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 9) {
-      quality = "minor";
-    } else if (someMIDI.note.number == root + 10) {
-      quality = null;
-    } else if (someMIDI.note.number == root + 11) {
-      quality = "minor";
-    } else if (someMIDI.note.number == root + 12) {
-      quality = "major";
-    }
-  }
-}
 
 // Add an event listener for the 'change' event on the input devices dropdown.
 // This allows the script to react when the user selects a different MIDI input device.
@@ -220,27 +152,53 @@ dropIns.addEventListener("change", function () {
   // Change the input device based on the user's selection in the dropdown.
   myInput = WebMidi.inputs[dropIns.value];
 
-  myInput.addListener("noteon", function (someMIDI) {
-    // When a note on event is received, send a note on message to the output device.
-    // This can trigger a sound or action on the MIDI output device.
+  let intervalID;
+  if (progGenOn == true) {
+    myInput.addListener("noteon", function (someMIDI) {
+      // Create a new MIDI message object with the desired note number (60)
+      let myNotes = {
+        note: {
+          identifier: someMIDI.note.identifier,
+          number: 60, // Set the note number to 60
+          rawAttack: someMIDI.note.rawAttack,
+        },
+      };
+      console.log(myNotes.note.number);
+      // Process the MIDI message with the fixed note number
+      myNotes = midiProcess(myNotes, quality);
 
-    console.log(
-      `My note is ${someMIDI.note.identifier}, it is pitch ${someMIDI.note.number}, with a velocity of ${someMIDI.note.rawAttack}`
-    );
+      // Define a function to send note-on messages
+      function sendNoteOn() {
+        myOutput.sendNoteOn(myNotes);
+      }
 
-    let myNotes = midiProcess(someMIDI, quality);
-    console.log(myNotes);
+      // Set an interval to repeatedly send note-on messages and store its ID
+      intervalID = setInterval(sendNoteOn, 1000);
+    });
 
-    myOutput.sendNoteOn(myNotes);
+    myInput.addListener("noteoff", function (someMIDI) {
+      // Clear the interval set in the "noteon" section
+      clearInterval(intervalID);
+    });
+  } else {
+    myInput.addListener("noteon", function (someMIDI) {
+      // When a note on event is received, send a note on message to the output device.
+      // This can trigger a sound or action on the MIDI output device.
 
-    // });
-  });
-  myInput.addListener("noteoff", function (someMIDI) {
-    // Similarly, when a note off event is received, send a note off message to the output device.
-    // This signals the end of a note being played.
+      let myNotes = midiProcess(someMIDI, quality);
+      console.log(myNotes);
 
-    myOutput.sendNoteOff(midiProcess(someMIDI, quality));
-  });
+      myOutput.sendNoteOn(myNotes);
+
+      // });
+    });
+    myInput.addListener("noteoff", function (someMIDI) {
+      // Similarly, when a note off event is received, send a note off message to the output device.
+      // This signals the end of a note being played.
+
+      myOutput.sendNoteOff(midiProcess(someMIDI, quality));
+    });
+  }
 });
 
 //An inefficient way of generating four MIDI notes from one, using the MIDI Note Number, and a quality assignment
@@ -315,11 +273,11 @@ const midiProcess = function (midiIN, quality) {
         quality = "major";
       }
     }
-    console.log("buabuabuabuab");
   }
 
   //Put all outcome code in here
   //Don't use function in here--All one big function
+
   if (quality == "major") {
     let myNewNote1 = new Note(pitch, { rawAttack: 101 });
     let myNewNote2 = new Note(pitch + 4, { rawAttack: 101 });
