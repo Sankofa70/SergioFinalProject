@@ -16,6 +16,7 @@ let chordOne = document.getElementById("firstChord");
 let chordTwo = document.getElementById("secondChord");
 let chordThree = document.getElementById("thirdChord");
 let chordFour = document.getElementById("fourthChord");
+let tempo = document.getElementById("tempo");
 
 // For each MIDI input device detected, add an option to the input devices dropdown.
 // This loop iterates over all detected input devices, adding them to the dropdown.
@@ -130,7 +131,8 @@ let chordOneSelection;
 let chordTwoSelection;
 let chordThreeSelection;
 let chordFourSelection;
-// Define named functions for event listeners
+
+//These functions adds event listeners for the chord boxes in the Progression Generator
 
 function chordOneAssigner() {
   chordOneSelection = chordOne.value;
@@ -180,7 +182,23 @@ functionSelect.addEventListener("change", function () {
   }
 });
 
-//This function adds event listeners for the chord boxes in the Progression Generator
+//A function for adjusting the tempo of the chord progression
+
+let tempoInput = 120;
+let tempoInMilliseconds;
+
+function tempoToMilliseconds(tempo) {
+  return 60000 / tempo;
+}
+
+tempo.addEventListener("change", function () {
+  tempoInput = tempo.value;
+  tempoInMilliseconds = tempoToMilliseconds(tempoInput) * 4;
+  console.log(`The tempo of the chord progression is ${tempoInput} BPM.`);
+  console.log(
+    `The tempo of the chord progression in milliseconds is ${tempoInMilliseconds} BPM.`
+  );
+});
 
 // Add an event listener for the 'change' event on the input devices dropdown.
 // This allows the script to react when the user selects a different MIDI input device.
@@ -291,10 +309,10 @@ dropIns.addEventListener("change", function () {
                   fourthChord();
                   // Call the function recursively to loop indefinitely
                   chordSequence();
-                }, 999);
-              }, 999);
-            }, 999);
-          }, 999);
+                }, tempoInMilliseconds - 1);
+              }, tempoInMilliseconds - 1);
+            }, tempoInMilliseconds - 1);
+          }, tempoInMilliseconds - 1);
         }
 
         // Start the sequence
@@ -323,7 +341,7 @@ dropIns.addEventListener("change", function () {
       }
 
       // Set an interval to repeatedly send note-on messages and store its ID
-      intervalID = setInterval(sendNoteOn, 1000);
+      intervalID = setInterval(sendNoteOn, tempoInMilliseconds);
     });
 
     myInput.addListener("noteoff", function (someMIDI) {
@@ -489,7 +507,7 @@ dropOuts.addEventListener("change", function () {
 
 statusCheck.addEventListener("click", function () {
   console.log(`Progression Generator? ${progGenOn}`);
-  console.log(`Chord Quuality: ${quality}`);
+  console.log(`Chord Quality: ${quality}`);
   console.log(`Key Context: ${keyContextToggle}`);
   console.log(`Key Context Key: ${keyContextSelection}`);
 });
