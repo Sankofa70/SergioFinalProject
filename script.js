@@ -12,10 +12,10 @@ let keyContext = document.getElementById("keyContext");
 let keyContextKey = document.getElementById("key");
 let functionSelect = document.getElementById("whichFunction");
 let statusCheck = document.getElementById("statusCheck");
-let firstChordSelection = document.getElementById("firstChord");
-let secondChordSelection = document.getElementById("secondChord");
-let thirdChordSelection = document.getElementById("thirdChord");
-let fourthChordSelection = document.getElementById("fourthChord");
+let chordOne = document.getElementById("firstChord");
+let chordTwo = document.getElementById("secondChord");
+let chordThree = document.getElementById("thirdChord");
+let chordFour = document.getElementById("fourthChord");
 
 // For each MIDI input device detected, add an option to the input devices dropdown.
 // This loop iterates over all detected input devices, adding them to the dropdown.
@@ -126,21 +126,61 @@ function chordGeneratorOn() {
   console.log(progGenOn);
 }
 
+let chordOneSelection;
+let chordTwoSelection;
+let chordThreeSelection;
+let chordFourSelection;
+// Define named functions for event listeners
+
+function chordOneAssigner() {
+  chordOneSelection = chordOne.value;
+  console.log(`The first chord in the progression is ${chordOneSelection}`);
+}
+
+function chordTwoAssigner() {
+  chordTwoSelection = chordTwo.value;
+  console.log(`The second chord in the progression is ${chordTwoSelection}`);
+}
+
+function chordThreeAssigner() {
+  chordThreeSelection = chordThree.value;
+  console.log(`The third chord in the progression is ${chordThreeSelection}`);
+}
+
+function chordFourAssigner() {
+  chordFourSelection = chordFour.value;
+  console.log(`The fourth chord in the progression is ${chordFourSelection}`);
+}
+
+// Add event listeners
+function progressionSelection() {
+  chordOne.addEventListener("change", chordOneAssigner);
+  chordTwo.addEventListener("change", chordTwoAssigner);
+  chordThree.addEventListener("change", chordThreeAssigner);
+  chordFour.addEventListener("change", chordFourAssigner);
+}
+
+// Remove event listeners
+function progressionSelectionDeactivate() {
+  chordOne.removeEventListener("change", chordOneAssigner);
+  chordTwo.removeEventListener("change", chordTwoAssigner);
+  chordThree.removeEventListener("change", chordThreeAssigner);
+  chordFour.removeEventListener("change", chordFourAssigner);
+}
+
 functionSelect.addEventListener("change", function () {
   if (functionSelect.value == "progressionGen") {
     progGenOn = true;
     console.log("The Progression Generator is On");
+    progressionSelection();
   } else if (functionSelect.value == "chordGen") {
     progGenOn = false;
     console.log("The Chord Generator is On");
+    progressionSelectionDeactivate();
   }
-  console.log(progGenOn);
 });
 
 //This function adds event listeners for the chord boxes in the Progression Generator
-
-//Based on the value of the MIDI note number compared to the root of the selected key's note number, change the quality of the chord. For now, this will only work with MIDI notes 60 - 72.
-//This also prevents the user from playing notes outside of their selected scale (Within the MIDI Note 60-72 Octave)
 
 // Add an event listener for the 'change' event on the input devices dropdown.
 // This allows the script to react when the user selects a different MIDI input device.
@@ -168,19 +208,75 @@ dropIns.addEventListener("change", function () {
       function progressionLooper() {
         // Define the functions to be executed in order
         function firstChord() {
-          currentRootNumber = 60;
+          if (chordOneSelection == "I") {
+            currentRootNumber = someMIDI.note.number;
+          } else if (chordOneSelection == "ii") {
+            currentRootNumber = someMIDI.note.number + 2;
+          } else if (chordOneSelection == "iii") {
+            currentRootNumber = someMIDI.note.number + 4;
+          } else if (chordOneSelection == "IV") {
+            currentRootNumber = someMIDI.note.number + 5;
+          } else if (chordOneSelection == "V") {
+            currentRootNumber = someMIDI.note.number + 7;
+          } else if (chordOneSelection == "vi") {
+            currentRootNumber = someMIDI.note.number + 9;
+          } else if (chordOneSelection == "viio") {
+            currentRootNumber = someMIDI.note.number + 11;
+          }
         }
 
         function secondChord() {
-          currentRootNumber = 61;
+          if (chordTwoSelection == "I") {
+            currentRootNumber = someMIDI.note.number;
+          } else if (chordTwoSelection == "ii") {
+            currentRootNumber = someMIDI.note.number + 2;
+          } else if (chordTwoSelection == "iii") {
+            currentRootNumber = someMIDI.note.number + 4;
+          } else if (chordTwoSelection == "IV") {
+            currentRootNumber = someMIDI.note.number + 5;
+          } else if (chordTwoSelection == "V") {
+            currentRootNumber = someMIDI.note.number + 7;
+          } else if (chordTwoSelection == "vi") {
+            currentRootNumber = someMIDI.note.number + 9;
+          } else if (chordTwoSelection == "viio") {
+            currentRootNumber = someMIDI.note.number + 11;
+          }
         }
 
         function thirdChord() {
-          currentRootNumber = 62;
+          if (chordThreeSelection == "I") {
+            currentRootNumber = someMIDI.note.number;
+          } else if (chordThreeSelection == "ii") {
+            currentRootNumber = someMIDI.note.number + 2;
+          } else if (chordThreeSelection == "iii") {
+            currentRootNumber = someMIDI.note.number + 4;
+          } else if (chordThreeSelection == "IV") {
+            currentRootNumber = someMIDI.note.number + 5;
+          } else if (chordThreeSelection == "V") {
+            currentRootNumber = someMIDI.note.number + 7;
+          } else if (chordThreeSelection == "vi") {
+            currentRootNumber = someMIDI.note.number + 9;
+          } else if (chordThreeSelection == "viio") {
+            currentRootNumber = someMIDI.note.number + 11;
+          }
         }
 
         function fourthChord() {
-          currentRootNumber = 63;
+          if (chordFourSelection == "I") {
+            currentRootNumber = someMIDI.note.number;
+          } else if (chordFourSelection == "ii") {
+            currentRootNumber = someMIDI.note.number + 2;
+          } else if (chordFourSelection == "iii") {
+            currentRootNumber = someMIDI.note.number + 4;
+          } else if (chordFourSelection == "IV") {
+            currentRootNumber = someMIDI.note.number + 5;
+          } else if (chordFourSelection == "V") {
+            currentRootNumber = someMIDI.note.number + 7;
+          } else if (chordFourSelection == "vi") {
+            currentRootNumber = someMIDI.note.number + 9;
+          } else if (chordFourSelection == "viio") {
+            currentRootNumber = someMIDI.note.number + 11;
+          }
         }
 
         // Define the sequence of function calls with delays
@@ -260,6 +356,8 @@ dropIns.addEventListener("change", function () {
 const midiProcess = function (midiIN, quality) {
   let pitch = midiIN.note.number;
 
+  //Based on the value of the MIDI note number compared to the root of the selected key's note number, change the quality of the chord. For now, this will only work with MIDI notes 60 - 72.
+  //This also prevents the user from playing notes outside of their selected scale (Within the MIDI Note 60-72 Octave)
   if (progGenOn == true) {
     console.log("The Progression Generator is Working");
     keyContextToggle = true;
