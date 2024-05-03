@@ -24,29 +24,6 @@
       </h3>
       <!-- An h1 header that provides a title or a brief description of the page's purpose. -->
     </div>
-
-    <div>
-      <!-- A division or a section in an HTML document, used here to group the input device selector. -->
-      <label for="dropdown-ins">Select a MIDI Input:</label>
-      <!-- The label tag defines a label for the select element below. The 'for' attribute specifies which form element the label is bound to. -->
-      <select id="dropdown-ins">
-        <!-- The select tag represents a drop-down list. The id attribute is used to identify the element in CSS and JavaScript. -->
-        <!-- Options for the drop-down list are dynamically added through the script.js file. -->
-        <option value="midiPianoRoll">MIDI Piano Roll</option>
-      </select>
-    </div>
-
-    <div>
-      <!-- Another division for grouping the output device selector. -->
-      <label for="dropdown-outs">Select a MIDI Output:</label>
-      <!-- Similar to the input label, this defines a label for the MIDI output selector. -->
-      <select id="dropdown-outs">
-        <!-- This select element is for choosing a MIDI output device. -->
-        <!-- Like the input selector, options are added dynamically via script.js. -->
-        <option value="liveAudioOut">Live Audio Out</option>
-      </select>
-    </div>
-
     <div>
       <label for="whichFunction"
         >Progression Generator or Individual Chord Generator? Select
@@ -55,6 +32,28 @@
       <select name="whichfunction" id="whichFunction">
         <option value="chordGen">Individual Chord Generator</option>
         <option value="progressionGen">Chord Progression Generator</option>
+      </select>
+    </div>
+
+    <div>
+      <!-- A division or a section in an HTML document, used here to group the input device selector. -->
+      <label for="dropdown-ins">Select a MIDI Input:</label>
+      <!-- The label tag defines a label for the select element below. The 'for' attribute specifies which form element the label is bound to. -->
+      <select id="dropdown-ins">
+        <option value="" selected disabled hidden>Choose an option</option>
+        <!-- The select tag represents a drop-down list. The id attribute is used to identify the element in CSS and JavaScript. -->
+        <!-- Options for the drop-down list are dynamically added through the script.js file. -->
+      </select>
+    </div>
+
+    <div>
+      <!-- Another division for grouping the output device selector. -->
+      <label for="dropdown-outs">Select a MIDI Output:</label>
+      <!-- Similar to the input label, this defines a label for the MIDI output selector. -->
+      <select id="dropdown-outs">
+        <option value="" selected disabled hidden>Choose an option</option>
+        <!-- This select element is for choosing a MIDI output device. -->
+        <!-- Like the input selector, options are added dynamically via script.js. -->
       </select>
     </div>
 
