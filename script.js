@@ -95,8 +95,10 @@ keyContext.addEventListener("change", function () {
   keyContextToggle ? kcToggleOn() : kcToggleOff();
 
   if (keyContextToggle == true) {
+    kcKeySelect();
     keyContextKey.addEventListener("change", kcKeySelect);
   } else if (keyContextToggle == false) {
+    qualitySelect();
     keyContextKey.removeEventListener("change", kcKeySelect);
   }
 });
@@ -437,6 +439,102 @@ const midiProcess = function (midiIN, quality) {
         quality = "minor";
       } else if (pitch == root + 12) {
         quality = "major";
+      } else if (pitch == root + 13) {
+        quality = null;
+      } else if (pitch == root + 14) {
+        quality = "minor";
+      } else if (pitch == root + 15) {
+        quality = null;
+      } else if (pitch == root + 16) {
+        quality = "minor";
+      } else if (pitch == root + 17) {
+        quality = "major";
+      } else if (pitch == root + 18) {
+        quality = null;
+      } else if (pitch == root + 19) {
+        quality = "major";
+      } else if (pitch == root + 20) {
+        quality = null;
+      } else if (pitch == root + 21) {
+        quality = "minor";
+      } else if (pitch == root + 22) {
+        quality = null;
+      } else if (pitch == root + 23) {
+        quality = "minor";
+      } else if (pitch == root + 24) {
+        quality = "major";
+      } else if (pitch == root + 25) {
+        quality = null;
+      } else if (pitch == root + 26) {
+        quality = "minor";
+      } else if (pitch == root + 27) {
+        quality = null;
+      } else if (pitch == root + 28) {
+        quality = "minor";
+      } else if (pitch == root + 29) {
+        quality = "major";
+      } else if (pitch == root + 30) {
+        quality = null;
+      } else if (pitch == root + 31) {
+        quality = "major";
+      } else if (pitch == root + 32) {
+        quality = null;
+      } else if (pitch == root + 33) {
+        quality = "minor";
+      } else if (pitch == root + 34) {
+        quality = null;
+      } else if (pitch == root + 35) {
+        quality = "minor";
+      } else if (pitch == root + 36) {
+        quality = "major";
+      } else if (pitch == root - 24) {
+        quality = "major";
+      } else if (pitch == root - 23) {
+        quality = null;
+      } else if (pitch == root - 22) {
+        quality = "minor";
+      } else if (pitch == root - 21) {
+        quality = null;
+      } else if (pitch == root - 20) {
+        quality = "minor";
+      } else if (pitch == root - 19) {
+        quality = "major";
+      } else if (pitch == root - 18) {
+        quality = null;
+      } else if (pitch == root - 17) {
+        quality = "major";
+      } else if (pitch == root - 16) {
+        quality = null;
+      } else if (pitch == root - 15) {
+        quality = "minor";
+      } else if (pitch == root - 14) {
+        quality = null;
+      } else if (pitch == root - 13) {
+        quality = "minor";
+      } else if (pitch == root - 12) {
+        quality = "major";
+      } else if (pitch == root - 11) {
+        quality = null;
+      } else if (pitch == root - 10) {
+        quality = "minor";
+      } else if (pitch == root - 9) {
+        quality = null;
+      } else if (pitch == root - 8) {
+        quality = "minor";
+      } else if (pitch == root - 7) {
+        quality = "major";
+      } else if (pitch == root - 6) {
+        quality = null;
+      } else if (pitch == root - 5) {
+        quality = "major";
+      } else if (pitch == root - 4) {
+        quality = null;
+      } else if (pitch == root - 3) {
+        quality = "minor";
+      } else if (pitch == root - 2) {
+        quality = null;
+      } else if (pitch == root - 1) {
+        quality = "minor";
       }
     }
   } else {
@@ -471,6 +569,102 @@ const midiProcess = function (midiIN, quality) {
         quality = "minor";
       } else if (pitch == root + 12) {
         quality = "major";
+      } else if (pitch == root + 13) {
+        quality = null;
+      } else if (pitch == root + 14) {
+        quality = "minor";
+      } else if (pitch == root + 15) {
+        quality = null;
+      } else if (pitch == root + 16) {
+        quality = "minor";
+      } else if (pitch == root + 17) {
+        quality = "major";
+      } else if (pitch == root + 18) {
+        quality = null;
+      } else if (pitch == root + 19) {
+        quality = "major";
+      } else if (pitch == root + 20) {
+        quality = null;
+      } else if (pitch == root + 21) {
+        quality = "minor";
+      } else if (pitch == root + 22) {
+        quality = null;
+      } else if (pitch == root + 23) {
+        quality = "minor";
+      } else if (pitch == root + 24) {
+        quality = "major";
+      } else if (pitch == root + 25) {
+        quality = null;
+      } else if (pitch == root + 26) {
+        quality = "minor";
+      } else if (pitch == root + 27) {
+        quality = null;
+      } else if (pitch == root + 28) {
+        quality = "minor";
+      } else if (pitch == root + 29) {
+        quality = "major";
+      } else if (pitch == root + 30) {
+        quality = null;
+      } else if (pitch == root + 31) {
+        quality = "major";
+      } else if (pitch == root + 32) {
+        quality = null;
+      } else if (pitch == root + 33) {
+        quality = "minor";
+      } else if (pitch == root + 34) {
+        quality = null;
+      } else if (pitch == root + 35) {
+        quality = "minor";
+      } else if (pitch == root + 36) {
+        quality = "major";
+      } else if (pitch == root - 24) {
+        quality = "major";
+      } else if (pitch == root - 23) {
+        quality = null;
+      } else if (pitch == root - 22) {
+        quality = "minor";
+      } else if (pitch == root - 21) {
+        quality = null;
+      } else if (pitch == root - 20) {
+        quality = "minor";
+      } else if (pitch == root - 19) {
+        quality = "major";
+      } else if (pitch == root - 18) {
+        quality = null;
+      } else if (pitch == root - 17) {
+        quality = "major";
+      } else if (pitch == root - 16) {
+        quality = null;
+      } else if (pitch == root - 15) {
+        quality = "minor";
+      } else if (pitch == root - 14) {
+        quality = null;
+      } else if (pitch == root - 13) {
+        quality = "minor";
+      } else if (pitch == root - 12) {
+        quality = "major";
+      } else if (pitch == root - 11) {
+        quality = null;
+      } else if (pitch == root - 10) {
+        quality = "minor";
+      } else if (pitch == root - 9) {
+        quality = null;
+      } else if (pitch == root - 8) {
+        quality = "minor";
+      } else if (pitch == root - 7) {
+        quality = "major";
+      } else if (pitch == root - 6) {
+        quality = null;
+      } else if (pitch == root - 5) {
+        quality = "major";
+      } else if (pitch == root - 4) {
+        quality = null;
+      } else if (pitch == root - 3) {
+        quality = "minor";
+      } else if (pitch == root - 2) {
+        quality = null;
+      } else if (pitch == root - 1) {
+        quality = "minor";
       }
     }
   }
