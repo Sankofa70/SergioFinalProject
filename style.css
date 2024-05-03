@@ -1,0 +1,57 @@
+/* General body and layout styles */
+body {
+  font-family: "Arial", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif; /* Set the font to Arial for the entire webpage */
+  background-color: #1e1e1e; /* Set the body background color */
+  color: white; /* Set the default text color to white */
+  padding: 20px; /* Add padding to the entire body of the webpage */
+  margin: 0; /* Remove default margin from the body */
+  line-height: 1.6; /* Set line height for better readability */
+}
+
+/* Heading styles */
+h1 {
+  color: goldenrod;
+}
+h2 {
+  color: goldenrod;
+}
+h3 {
+  color: lightsalmon; /* Set the color of all headers (h1, h2, h3) to light blue */
+}
+
+select {
+  background-color: rgb(
+    56,
+    64,
+    71
+  ); /* Set background color for the select dropdown */
+  color: white; /* Set text color for the select dropdown */
+  border: 1px solid #313030; /* Add border to the select dropdown */
+  padding: 2px; /* Add padding to the select dropdown */
+  font-size: 16px; /* Set font size for the select dropdown */
+  margin: 5px 0; /* Add margin to the select dropdown */
+}
+
+/* Color for dropdown options */
+select option {
+  color: black; /* Set text color for dropdown options */
+}
+
+/* Styles for labels */
+label {
+  margin-right: 20px; /* Add margin to the right of labels */
+}
+
+button:hover {
+  background-color: #4fa1d7; /* Change the button's background color when hovered */
+}
+
+button {
+  background-color: #8b8383;
+}
+
+input {
+  background-color: #4b4747;
+  color: white;
+}
