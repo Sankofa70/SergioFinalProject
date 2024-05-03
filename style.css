@@ -35,7 +35,7 @@ select {
 
 /* Color for dropdown options */
 select option {
-  color: black; /* Set text color for dropdown options */
+  color: white; /* Set text color for dropdown options */
 }
 
 /* Styles for labels */
@@ -48,7 +48,7 @@ button:hover {
 }
 
 button {
-  background-color: #8b8383;
+  background-color: #bfb7b7;
 }
 
 input {
